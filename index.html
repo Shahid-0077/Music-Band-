@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RagaRiot — Band Official Site</title>
+  <meta name="description" content="RagaRiot - an Indian fusion band. Listen to music, see tour dates, buy merch and watch our gallery." />
+  <style>
+    :root{
+      --bg:#0b1020; --card:#081827; --muted:#9fb4c8; --accent:#ff6f3c; --accent-2:#4f46e5; --radius:12px; --max:1100px; color-scheme: dark; font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#041022);color:#e6f0f8}
+    a{color:var(--accent-2)}
+    .wrap{max-width:var(--max);margin:28px auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),#06b6d4);display:grid;place-items:center;font-weight:800}
+    h1{margin:0;font-size:20px}
+    nav{display:flex;gap:8px}
+    .btn{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+    .primary{background:linear-gradient(90deg,var(--accent),#f97316);border:none;color:#061018}
+
+    .hero{display:flex;gap:18px;align-items:center;margin-top:18px}
+    .hero .intro{flex:1}
+    .hero h2{margin:0}
+    .muted{color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:18px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
+
+    /* Player */
+    .player{display:flex;gap:12px;align-items:center}
+    .cover{width:120px;height:120px;border-radius:10px;background:linear-gradient(180deg,#081827,#062033);display:grid;place-items:center;font-weight:800}
+    .controls{display:flex;gap:8px;align-items:center}
+    input[type=range]{width:180px}
+
+    /* Tours */
+    .tours{display:flex;flex-direction:column;gap:10px}
+    .tour{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;background:rgba(255,255,255,0.01)}
+
+    /* Merch */
+    .merch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .merch{padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:8px}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .media{height:120px;border-radius:8px;background:#041721;display:grid;place-items:center}
+
+    footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
+
+    @media (max-width:980px){
+      .grid{grid-template-columns:1fr}
+      .merch-grid{grid-template-columns:1fr}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      .hero{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">RR</div>
+        <div>
+          <h1>RagaRiot</h1>
+          <div class="muted" style="font-size:13px">Indian fusion • Live & electric</div>
+        </div>
+      </div>
+      <nav aria-label="Main nav">
+        <button class="btn" onclick="scrollTo('music')">Music</button>
+        <button class="btn" onclick="scrollTo('tours')">Tours</button>
+        <button class="btn" onclick="scrollTo('merch')">Merch</button>
+        <button class="btn" onclick="scrollTo('gallery')">Gallery</button>
+        <button class="primary" onclick="scrollTo('contact')">Book Us</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero card">
+        <div class="intro">
+          <h2>RagaRiot — where Indian ragas meet modern rhythms</h2>
+          <p class="muted">Touring across India. New album out now. Energetic live shows blending classical instruments with synths and grooves.</p>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="primary" onclick="playFirst()">Play Latest</button>
+            <button class="btn" onclick="scrollTo('tours')">See Tour Dates</button>
+          </div>
+        </div>
+        <div style="width:240px;display:flex;flex-direction:column;gap:8px;align-items:center">
+          <div style="width:220px;height:140px;border-radius:10px;background:linear-gradient(180deg,#061726,#082233);display:grid;place-items:center;font-weight:800">Live photo</div>
+          <div style="display:flex;gap:8px;width:100%">
+            <div style="flex:1;height:70px;border-radius:8px;background:#062233"></div>
+            <div style="flex:1;height:70px;border-radius:8px;background:#081726"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section>
+          <div id="music" class="card">
+            <h2 style="margin-top:0">Music Player</h2>
+            <div class="player">
+              <div class="cover" id="cover">RR</div>
+              <div>
+                <div id="trackTitle" style="font-weight:700">RagaRiot — Aajan</div>
+                <div class="muted" id="trackMeta">Single • 2025</div>
+                <div style="margin-top:10px;display:flex;align-items:center;gap:8px">
+                  <button class="btn" onclick="prevTrack()">Prev</button>
+                  <button class="primary" id="playBtn" onclick="togglePlay()">Play</button>
+                  <button class="btn" onclick="nextTrack()">Next</button>
+                  <input type="range" id="seek" min="0" max="100" value="0" />
+                </div>
+                <audio id="audio" preload="metadata">
+                  <source src="" type="audio/mpeg" />
+                  Your browser does not support audio.
+                </audio>
+              </div>
+            </div>
+
+            <div style="margin-top:12px">
+              <h4 style="margin:0">Playlist</h4>
+              <ol id="playlist" style="margin-top:8px"></ol>
+            </div>
+          </div>
+
+          <div id="tours" class="card" style="margin-top:16px">
+            <h2 style="margin-top:0">Tour Dates</h2>
+            <p class="muted">Catch us live — tickets available at venues (demo).</p>
+            <div class="tours" id="tourList"></div>
+          </div>
+
+          <div id="merch" class="card" style="margin-top:16px">
+            <h2 style="margin-top:0">Merchandise Store</h2>
+            <p class="muted">Official merch — shirts, posters & vinyl (demo store, no payments).</p>
+            <div class="merch-grid" id="merchList"></div>
+            <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+              <div><strong>Cart:</strong> <span id="cartCount">0</span> items</div>
+              <div><strong>Total:</strong> ₹<span id="cartTotal">0</span></div>
+            </div>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button class="primary" onclick="checkout()">Checkout (demo)</button>
+              <button class="btn" onclick="clearCart()">Clear</button>
+            </div>
+          </div>
+
+          <div id="gallery" class="card" style="margin-top:16px">
+            <h2 style="margin-top:0">Gallery — Photos & Videos</h2>
+            <div class="gallery" id="galleryGrid"></div>
+            <div style="margin-top:12px" id="videoSection">
+              <h4 style="margin:0">Videos</h4>
+              <div style="margin-top:8px;display:grid;gap:8px">
+                <div class="media">Video: Live at Kolkata (embed)</div>
+                <div class="media">Video: Studio Session</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside>
+          <div class="card" id="contact">
+            <h3 style="margin-top:0">Book the Band</h3>
+            <p class="muted">For bookings, collaborations or press — send us details and we'll reply (demo).</p>
+            <form onsubmit="submitBooking(event)">
+              <label class="muted">Your name</label>
+              <input name="name" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)" />
+              <label class="muted" style="margin-top:8px">Email / Phone</label>
+              <input name="contact" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)" />
+              <label class="muted" style="margin-top:8px">Event date</label>
+              <input name="date" type="date" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)" />
+              <label class="muted" style="margin-top:8px">Message</label>
+              <textarea name="message" rows="3" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)"></textarea>
+              <div style="margin-top:10px;display:flex;gap:8px">
+                <button class="primary" type="submit">Send Booking</button>
+                <button class="btn" type="reset">Reset</button>
+              </div>
+              <div id="bookMsg" class="muted" style="margin-top:8px"></div>
+            </form>
+          </div>
+
+          <div class="card" style="margin-top:14px">
+            <h3 style="margin-top:0">Social</h3>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <a class="btn" href="#">YouTube</a>
+              <a class="btn" href="#">Spotify</a>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:14px">
+            <h3 style="margin-top:0">Newsletter</h3>
+            <p class="muted">Get tour alerts & releases.</p>
+            <input id="newsEmail" placeholder="Email address" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)" />
+            <div style="margin-top:8px;display:flex;gap:8px"><button class="primary" onclick="subscribe()">Subscribe</button></div>
+            <div id="newsMsg" class="muted" style="margin-top:8px"></div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> RagaRiot — Indian fusion band • Demo site</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // --- Music player data ---
+    const PLAYLIST = [
+      {id:'m1',title:'Aajan',meta:'Single • 2025',src:'',duration:180},
+      {id:'m2',title:'Dhun in Dusk',meta:'EP • 2024',src:'',duration:210},
+      {id:'m3',title:'Monsoon Groove',meta:'Live • 2025',src:'',duration:240}
+    ];
+    const audio = document.getElementById('audio'); let currentTrack = 0; const playlistEl = document.getElementById('playlist');
+    function renderPlaylist(){ playlistEl.innerHTML=''; PLAYLIST.forEach((t,i)=>{ const li = document.createElement('li'); li.innerHTML = `<a href="#" onclick="openTrack(${i});return false">${t.title} — ${t.meta}</a>`; playlistEl.appendChild(li); }); }
+    renderPlaylist();
+
+    function openTrack(i){ currentTrack = i; const t = PLAYLIST[i]; document.getElementById('trackTitle').textContent = t.title; document.getElementById('trackMeta').textContent = t.meta; // audio.src = t.src; // add source when available
+      audio.currentTime = 0; // audio.play();
+      document.getElementById('playBtn').textContent = 'Play';
+    }
+    openTrack(0);
+
+    function togglePlay(){ if(audio.paused){ audio.play(); document.getElementById('playBtn').textContent = 'Pause'; } else { audio.pause(); document.getElementById('playBtn').textContent = 'Play'; } }
+    function prevTrack(){ currentTrack = (currentTrack -1 + PLAYLIST.length)%PLAYLIST.length; openTrack(currentTrack); }
+    function nextTrack(){ currentTrack = (currentTrack +1)%PLAYLIST.length; openTrack(currentTrack); }
+    function playFirst(){ openTrack(0); togglePlay(); }
+
+    // Update seek bar
+    audio.addEventListener('timeupdate', ()=>{ const s = document.getElementById('seek'); if(audio.duration) s.value = (audio.currentTime / audio.duration) * 100; });
+    document.getElementById('seek').addEventListener('input', e=>{ if(audio.duration) audio.currentTime = (e.target.value/100) * audio.duration; });
+
+    // --- Tours ---
+    const TOURS = [
+      {id:'t1,',city:'Kolkata',venue:'Blue Frog',date:'2025-12-12',tickets:'Available'},
+      {id:'t2,',city:'Bengaluru',venue:'The Humming Tree',date:'2026-01-18',tickets:'Sold Out'},
+      {id:'t3,',city:'Mumbai',venue:'AntiSocial',date:'2026-02-05',tickets:'Available'}
+    ];
+    function renderTours(){ const el = document.getElementById('tourList'); el.innerHTML=''; TOURS.forEach(t=>{ const d = document.createElement('div'); d.className='tour'; d.innerHTML = `<div><div style="font-weight:700">${t.city} — ${t.venue}</div><div class="muted">${t.date}</div></div><div><div style="text-align:right"><div class="muted">${t.tickets}</div><div style="margin-top:8px"><button class="btn" onclick="bookTicket('${t.id}')">Buy Tickets</button></div></div></div>`; el.appendChild(d); }); }
+    renderTours();
+    function bookTicket(id){ alert('Ticket flow (demo) — redirecting to ticketing partner (demo).'); }
+
+    // --- Merch cart (localStorage) ---
+    const MERCH = [
+      {id:'mm1',title:'RagaRiot Tee',price:799},
+      {id:'mm2',title:'Vinyl — Live 2025',price:1299},
+      {id:'mm3',title:'Band Poster',price:299},
+      {id:'mm4',title:'RagaRiot Cap',price:499}
+    ];
+    const CART_KEY = 'rr_cart_v1';
+    function renderMerch(){ const el = document.getElementById('merchList'); el.innerHTML=''; MERCH.forEach(m=>{ const d = document.createElement('div'); d.className='merch'; d.innerHTML = `<div style="font-weight:800">${m.title}</div><div class="muted">₹${m.price}</div><div style="margin-top:8px;display:flex;gap:8px"><button class="btn" onclick="addToCart('${m.id}')">Add to cart</button><button class="btn" onclick="viewItem('${m.id}')">View</button></div>`; el.appendChild(d); }); }
+    function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY))||{} }catch(e){return{}} }
+    function saveCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); renderCart(); }
+    function addToCart(id){ const cart = loadCart(); cart[id] = (cart[id]||0)+1; saveCart(cart); flash('Added to cart'); }
+    function removeFromCart(id){ const cart = loadCart(); delete cart[id]; saveCart(cart); }
+    function clearCart(){ localStorage.removeItem(CART_KEY); renderCart(); }
+    function renderCart(){ const cart = loadCart(); const keys = Object.keys(cart); document.getElementById('cartCount').textContent = keys.reduce((s,k)=> s + cart[k],0); const total = keys.reduce((s,k)=> { const item = MERCH.find(x=>x.id===k); return s + (item.price * cart[k]); },0); document.getElementById('cartTotal').textContent = total; }
+    function checkout(){ const cart = loadCart(); if(Object.keys(cart).length===0){ alert('Cart empty'); return } alert('Checkout (demo) — total ₹' + document.getElementById('cartTotal').textContent); localStorage.removeItem(CART_KEY); renderCart(); }
+    function viewItem(id){ const item = MERCH.find(m=>m.id===id); alert(item.title + '\n\nPrice: ₹' + item.price + '\n\nAdd to cart (demo).'); }
+    function flash(text){ const el = document.createElement('div'); el.textContent = text; el.style.position='fixed'; el.style.right='16px'; el.style.bottom='16px'; el.style.background='rgba(0,0,0,0.8)'; el.style.color='white'; el.style.padding='8px 12px'; el.style.borderRadius='8px'; document.body.appendChild(el); setTimeout(()=>el.remove(),1400); }
+    renderMerch(); renderCart();
+
+    // --- Gallery ---
+    const MEDIA = [ 'Photo: Kolkata gig', 'Photo: Studio', 'Photo: Crowd', 'Photo: Backstage', 'Photo: Jaisalmer set' ];
+    function renderGallery(){ const el = document.getElementById('galleryGrid'); el.innerHTML=''; MEDIA.forEach(m=>{ const d = document.createElement('div'); d.className='media'; d.textContent = m; el.appendChild(d); }); }
+    renderGallery();
+
+    // --- Bookings & newsletter ---
+    function submitBooking(e){ e.preventDefault(); const f = e.target; const name = f.name.value.trim(); const contact = f.contact.value.trim(); if(!name||!contact){ document.getElementById('bookMsg').textContent = 'Please enter name and contact.'; return; } document.getElementById('bookMsg').textContent = `Thanks ${name}! We'll contact ${contact} to discuss details (demo).`; f.reset(); }
+    function subscribe(){ const email = document.getElementById('newsEmail').value.trim(); if(!email){ document.getElementById('newsMsg').textContent='Enter email.'; return; } document.getElementById('newsMsg').textContent = `Subscribed ${email} (demo).`; document.getElementById('newsEmail').value=''; }
+
+    // Helpers
+    function scrollTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'}); }
+
+    // Init
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
